@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'static')));
 
+
 const routes = [
   { path: '/', file: 'index.html' },
   { path: '/news', file: 'apps.html' },
