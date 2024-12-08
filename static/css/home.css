@@ -30,6 +30,15 @@ header {
       align-items: center;
       z-index: 1000;
     }
+    .fixed-image {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: auto; 
+      z-index: 999;
+    }
 
     .logo {
       font-size: 20px;
