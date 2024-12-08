@@ -3,6 +3,9 @@ import http from 'node:http';
 import createBareServer from "educational-br-sr";
 import path from 'node:path';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import ejs from 'ejs';
 
 const __dirname = process.cwd();
 const server = http.createServer();
@@ -15,6 +18,67 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'static')));
 
+app.set('view engine', 'ejs');
+
+app.use(cookieParser());
+app.use(session({
+    secret: 'wakamedayoooooooooooharusameeeeeee',
+    resave: false,
+    saveUninitialized: true
+}));
+
+//ログイン
+// 読み込み時ちぇっく
+app.use((req, res, next) => {
+    console.log("welcome!");
+    if (req.cookies.massiropass !== 'ok' && !req.path.includes('login')) {
+        req.session.redirectTo = req.path !== '/' ? req.path : null;
+        return res.redirect('/login');
+    } else {
+        next();
+    }
+});
+//ログイン済み？
+app.get('/login/if', async (req, res) => {
+    if (req.cookies.massiropass !== 'ok') {
+        res.render('login', { error: 'ログインしていません。もう一度ログインして下さい' })
+    } else {
+        return res.redirect('/');
+    }
+});
+// ログインページ
+app.get('/login', (req, res) => {
+    let referer = req.get('Referer') || 'No referer information';
+    let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    console.log(`URL: ${referer} から来た, IP: ${ip}`);
+    res.render('../views/login.ejs', { error: null });
+});
+// パスワード確認
+app.post('/login', (req, res) => {
+    const password = req.body.password;
+    if (password === 'harusame' || password === '114514Kiju' || password === '810Kiju' || password === 'aihiaihi') {
+        res.cookie('massiropass', 'ok', { maxAge: 5 * 24 * 60 * 60 * 1000, httpOnly: true });
+        
+        const redirectTo = req.session.redirectTo || '/';
+        delete req.session.redirectTo;
+        return res.redirect(redirectTo);
+    } else {
+        if (password === 'ohana') {
+            return res.redirect('https://ohuaxiehui.webnode.jp');
+        } else {
+            res.render('login', { error: 'パスワードが間違っています。もう一度お試しください。' });
+        }
+    }
+});
+//パスワードを忘れた場合
+app.get('/login/forgot', (req, res) => {
+  res.render(`login/forgot.ejs`);
+});
+//ログアウト
+app.post('/logout', (req, res) => {
+    res.cookie('pass', 'false', { maxAge: 1, httpOnly: true });
+    return res.redirect('/login');
+});
 
 const routes = [
   { path: '/', file: 'index.html' },
