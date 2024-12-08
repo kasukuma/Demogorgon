@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap");
 
 body {
-	font-family: "Inter", sans-serif;
+	font-family: "Helvetica Neue", sans-serif;
 	text-decoration: none;
 	background-color: #1e1e1e;
         height: 100%;
@@ -30,57 +30,101 @@ body {
 	background-color: white;
 }
 
+/* Fixed Navbar */
 .fixed-nav-bar {
   width: 100%;
-	position: fixed;
-	top: 0;
-	letter-spacing: 2px;
-	font-size: 22px;
-	left: 0;
-	right: 0;
-	padding: 0 25px;
-  height: 7vh;
-  background-color: #333333;
-	box-sizing: border-box;
-	background-color: rgba(255, 255, 255, 0.02);
-	box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.5);
-	backface-visibility: visible;
-	transition: 0.35s ease;
-	z-index: 100;
-	backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8vh;
+  padding: 0 25px;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+/* Logo or Icon */
+.fixed-nav-bar .icon {
+  font-size: 30px;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect for the logo/icon */
+.fixed-nav-bar .icon:hover {
+  transform: translateY(-5px) scale(1.1);
+  color: #3498db; 
+}
+
+/* Navigation Links Section */
+.fixed-nav-bar-right {
+  display: flex;
+  gap: 20px;
+}
+
+/* Individual Links */
+.fixed-nav-bar-right a {
+  font-size: 18px;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect for nav links */
+.fixed-nav-bar-right a:hover {
+  color: #3498db;
+}
+
+/* Active state for nav links */
+.fixed-nav-bar-right a.active {
+  color: #f39c12;
+}
+
+/* Icon inside the navbar */
+.fixed-nav-bar-right i {
+  margin-right: 8px;
+  transition: transform 0.2s ease;
+}
+
+/* Hover effect for icons inside navbar */
+.fixed-nav-bar-right a:hover i {
+  transform: translateX(5px);
+}
+
+/* Mobile and Tablet Responsive Styles */
+@media (max-width: 768px) {
+  .fixed-nav-bar {
+    height: 10vh;
+    padding: 0 15px;
   }
-  
-  .fixed-nav-bar .icon:hover {
-	transform: translateY(-55%) scale(1.03);
-	font-weight: 800;
-  }
-  
+
   .fixed-nav-bar .icon {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%) scale(1);
-	text-transform: uppercase;
-	font-size: 30px;
-	font-family: 'Inter', sans-serif;
-	cursor: pointer;
-	color: white;
-	font-weight: 600;
-	margin-left: 5px;
-	font-style: normal;
-	text-decoration: none;
-	transition: all 0.2s ease;
+    font-size: 26px;
   }
-  
+
   .fixed-nav-bar-right {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	text-transform: uppercase;
-	font-size: 18px;
-	color: white;
-	font-weight: 600;
-	right: 2%;
+    gap: 15px;
   }
+
+  .fixed-nav-bar-right a {
+    font-size: 16px;
+  }
+}
+
   
   .time {
 	position: absolute;
