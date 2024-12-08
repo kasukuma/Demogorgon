@@ -6,6 +6,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import ejs from 'ejs';
+import axios from 'axios';
 
 const __dirname = process.cwd();
 const server = http.createServer();
@@ -89,7 +90,6 @@ const routes = [
   { path: '/diagnostic', file: 'settings.html' },
   { path: '/local-news', file: 'tabs.html' },
   { path: '/image-galleries', file: 'go.html' },
-  { path: '/wkt/home', file: 'wakametube.html' },
 ];
 
 app.get('/edu/*', cors({ origin: false }), async (req, res, next) => {
@@ -106,6 +106,30 @@ app.get('/edu/*', cors({ origin: false }), async (req, res, next) => {
   } catch (error) {
     console.error('Error fetching:', error);
     next(error);
+  }
+});
+
+//わかめtube
+app.get("/wkt/home", async (req, res) => {
+  try {
+    const data= await axios.get(`https://wataame.glitch.me/api/topvideos`);
+
+    const videoCount = data.reduce((acc, { videoId, videoTitle, channelName, channelId }) => {
+      if (!acc[videoId]) {
+        acc[videoId] = { count: 0, videoTitle };
+      }
+      acc[videoId].count += 1;
+      return acc;
+    }, {});
+
+    const topVideos = Object.entries(videoCount)
+      .sort((a, b) => b[1].count - a[1].count)
+      .slice(0, 25);
+
+    res.render("wakametube.html", { topVideos });
+  } catch (error) {
+    console.error('エラーが発生しました:', error);
+    res.status(500).send('データを取得できませんでした');
   }
 });
 
