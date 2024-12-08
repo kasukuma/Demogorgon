@@ -89,6 +89,7 @@ const routes = [
   { path: '/diagnostic', file: 'settings.html' },
   { path: '/local-news', file: 'tabs.html' },
   { path: '/image-galleries', file: 'go.html' },
+  { path: '/wkt/home', file: 'wakametube.html' },
 ];
 
 app.get('/edu/*', cors({ origin: false }), async (req, res, next) => {
@@ -106,6 +107,43 @@ app.get('/edu/*', cors({ origin: false }), async (req, res, next) => {
     console.error('Error fetching:', error);
     next(error);
   }
+});
+
+//サジェスト
+app.get('/suggest', (req, res) => {
+    const keyword = req.query.keyword;
+    const options = {
+        hostname: 'www.google.com',
+        path: `/complete/search?client=youtube&hl=ja&ds=yt&q=${encodeURIComponent(keyword)}`,
+        method: 'GET',
+        headers: {
+            'User-Agent': 'Mozilla/5.0'
+        }
+    };
+    const request = http.request(options, (response) => {
+        let data = '';
+        response.on('data', (chunk) => {
+            data += chunk;
+        });
+        response.on('end', () => {
+            const jsonString = data.substring(data.indexOf('['), data.lastIndexOf(']') + 1);
+
+            try {
+                const suggestionsArray = JSON.parse(jsonString);
+                const suggestions = suggestionsArray[1].map(i => i[0]);
+                res.setHeader('Content-Type', 'application/json; charset=utf-8');
+                res.json(suggestions);
+            } catch (error) {
+                console.error('JSON parse error:', error);
+                res.status(500).send({ error: 'えらー。あらら' });
+            }
+        });
+    });
+    request.on('error', (error) => {
+        console.error('Request error:', error);
+        res.status(500).send({ error: 'えらー。あらら' });
+    });
+    request.end();
 });
 
 routes.forEach((route) => {
