@@ -18,18 +18,37 @@ a:hover {
 }
 
 header {
-  width: 100%;
-  background-color: #333333;
-  padding: 10px 0;
-  text-align: left;
-}
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
 
-.banner {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding-left: 15px;
-}
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .header-button {
+      background-color: #ff6347;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    
+    .header-button:hover {
+      background-color: #ff4500;
+    }
 
 .title {
 	position: relative;
