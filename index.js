@@ -16,7 +16,6 @@ const PORT = 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'static')));
 
 app.set('view engine', 'ejs');
 
@@ -38,6 +37,9 @@ app.use((req, res, next) => {
         next();
     }
 });
+
+app.use(express.static(path.join(__dirname, 'static')));
+
 //ログイン済み？
 app.get('/login/if', async (req, res) => {
     if (req.cookies.massiropass !== 'ok') {
@@ -51,12 +53,12 @@ app.get('/login', (req, res) => {
     let referer = req.get('Referer') || 'No referer information';
     let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     console.log(`URL: ${referer} から来た, IP: ${ip}`);
-    res.render('../views/login.ejs', { error: null });
+    res.render('../login/login.ejs', { error: null });
 });
 // パスワード確認
 app.post('/login', (req, res) => {
     const password = req.body.password;
-    if (password === 'harusame' || password === '114514Kiju' || password === '810Kiju' || password === 'aihiaihi') {
+    if (password === 'harusame') {
         res.cookie('massiropass', 'ok', { maxAge: 5 * 24 * 60 * 60 * 1000, httpOnly: true });
         
         const redirectTo = req.session.redirectTo || '/';
@@ -66,13 +68,13 @@ app.post('/login', (req, res) => {
         if (password === 'ohana') {
             return res.redirect('https://ohuaxiehui.webnode.jp');
         } else {
-            res.render('login', { error: 'パスワードが間違っています。もう一度お試しください。' });
+            res.render('../login/login.ejs', { error: 'パスワードが間違っています。もう一度お試しください。' });
         }
     }
 });
 //パスワードを忘れた場合
 app.get('/login/forgot', (req, res) => {
-  res.render(`login/forgot.ejs`);
+  res.render(`../login/forgot.ejs`);
 });
 //ログアウト
 app.post('/logout', (req, res) => {
