@@ -8,6 +8,7 @@ import session from 'express-session';
 import ejs from 'ejs';
 import axios from 'axios';
 import miniget from 'miniget';
+import ytpl from 'ytpl';
 
 const __dirname = process.cwd();
 const server = http.createServer();
@@ -15,6 +16,7 @@ const app = express(server);
 const bareServer = createBareServer('/outerspace/');
 const PORT = 8080;
 
+const limit = process.env.LIMIT || 50;
 const user_agent = process.env.USER_AGENT || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36";
 
 app.use(express.json());
@@ -134,6 +136,23 @@ app.get("/wkt/home", async (req, res) => {
   }
 });
 
+// チャンネル
+app.get("/wkt/c/:id", async (req, res) => {
+	if (!req.params.id) return res.redirect("/");
+	let page = Number(req.query.p || 1);
+	try {
+		res.render("channel.ejs", {
+			channel: await ytpl(req.params.id, { limit, pages: page }),
+			page
+		});
+	} catch (error) {
+		console.error(error);
+		res.status(500).render("error.ejs",{
+			title: "ytpl Error",
+			content: error
+		});
+	}
+});
 
 //サムネ画像
 app.get("/vi*", (req, res) => {
