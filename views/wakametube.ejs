@@ -54,10 +54,10 @@
   <div class="results">
     <% topVideos.forEach(([videoId, { count, videoTitle, channelName, channelId }], index) => { %>
         <div class="result-item">
-          <a href="/w/<%= videoId %>">
+          <a href="/wkt/w/<%= videoId %>">
             <img loading="lazy" src="/vi/<%= videoId %>/mqdefault.jpg" alt="<%= videoTitle %>">
           </a>
-          <p class="channel-name"><a href="/c/<%= channelId %>"><%= channelName %></a></p>
+          <p class="channel-name"><a href="/wkt/c/<%= channelId %>"><%= channelName %></a></p>
           <p class="video-title"><%= videoTitle %></p>
           </div>
     <% }); %>

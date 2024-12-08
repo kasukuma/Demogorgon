@@ -117,20 +117,16 @@ app.get("/wkt/home", async (req, res) => {
   try {
     const response = await axios.get(`https://wataamee.glitch.me/topvideos/api`);
     const data = response.data;
-
     const videoCount = {};
-
-    data.forEach(({ videoId, videoTitle }) => {
+    data.forEach(({ videoId, videoTitle, channelName, channelId }) => {
       if (!videoCount[videoId]) {
-        videoCount[videoId] = { count: 0, videoTitle };
+        videoCount[videoId] = { count: 0, videoTitle, channelName, channelId };
       }
       videoCount[videoId].count += 1;
     });
-
     const topVideos = Object.entries(videoCount)
       .sort((a, b) => b[1].count - a[1].count)
       .slice(0, 25);
-
     res.render("wakametube.ejs", { topVideos });
   } catch (error) {
     console.error('エラーが発生しました:', error);
