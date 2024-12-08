@@ -1,6 +1,6 @@
 {
   "name": "Wakame",
-  "version": "5.0.1",
+  "version": "1.0.1",
   "type": "module",
   "engines": {
     "npm": ">=7.0.0",
