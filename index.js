@@ -7,12 +7,15 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import ejs from 'ejs';
 import axios from 'axios';
+import miniget from 'miniget';
 
 const __dirname = process.cwd();
 const server = http.createServer();
 const app = express(server);
 const bareServer = createBareServer('/outerspace/');
 const PORT = 8080;
+
+const user_agent = process.env.USER_AGENT || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -112,25 +115,42 @@ app.get('/edu/*', cors({ origin: false }), async (req, res, next) => {
 //わかめtube
 app.get("/wkt/home", async (req, res) => {
   try {
-    const data= await axios.get(`https://wataame.glitch.me/api/topvideos`);
+    const response = await axios.get(`https://wataamee.glitch.me/topvideos/api`);
+    const data = response.data;
 
-    const videoCount = data.reduce((acc, { videoId, videoTitle, channelName, channelId }) => {
-      if (!acc[videoId]) {
-        acc[videoId] = { count: 0, videoTitle };
+    const videoCount = {};
+
+    data.forEach(({ videoId, videoTitle }) => {
+      if (!videoCount[videoId]) {
+        videoCount[videoId] = { count: 0, videoTitle };
       }
-      acc[videoId].count += 1;
-      return acc;
-    }, {});
+      videoCount[videoId].count += 1;
+    });
 
     const topVideos = Object.entries(videoCount)
       .sort((a, b) => b[1].count - a[1].count)
       .slice(0, 25);
 
-    res.render("wakametube.html", { topVideos });
+    res.render("wakametube.ejs", { topVideos });
   } catch (error) {
     console.error('エラーが発生しました:', error);
     res.status(500).send('データを取得できませんでした');
   }
+});
+
+
+//サムネ画像
+app.get("/vi*", (req, res) => {
+	let stream = miniget(`https://i.ytimg.com/${req.url.split("?")[0]}`, {
+		headers: {
+			"user-agent": user_agent
+		}
+	});
+	stream.on('error', err => {
+		console.log(err);
+		res.status(500).send(err.toString());
+	});
+	stream.pipe(res);
 });
 
 //サジェスト

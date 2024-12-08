@@ -45,35 +45,14 @@
   <br>
   
   <div class="results">
-    <% res.items.forEach(video => { %>
-      <% if (video.type === 'video') { %>
+    <% topVideos.forEach(([videoId, { count, videoTitle, channelName, channelId }], index) => { %>
         <div class="result-item">
-          <a href="/w/<%= video.id %>">
-            <img loading="lazy" src="/vi/<%= video.id %>/mqdefault.jpg" alt="<%= video.title %>">
+          <a href="/w/<%= videoId %>">
+            <img loading="lazy" src="/vi/<%= videoId %>/mqdefault.jpg" alt="<%= videoTitle %>">
           </a>
-          <p class="channel-name"><a href="/c/<%= video.author.channelID %>"><%= video.author.name %></a></p>
-          <p class="video-title"><%= video.title %></p>
-          <p class="video-description"><%= video.description %></p>
-          <p class="video-meta"><%= video.uploadedAt %> - <%= video.duration %></p>
+          <p class="channel-name"><a href="/c/<%= channelId %>"><%= channelName %></a></p>
+          <p class="video-title"><%= videoTitle %></p>
           </div>
-      <% } else if (video.type === 'playlist') { %>
-        <div class="playresult-item">
-          <a href="/p/<%= video.playlistID %>">
-            <img style="opacity: 0.5" src="<%= video.firstVideo.bestThumbnail.url.slice(19) %>" alt="<%= video.title %>">
-          </a>
-          <p class="video-title">プレイリスト(<%= video.length %>本以上の動画)</p>
-          <p class="channel-name"><a href="/u/<%= video.owner.id %>"><%= video.owner.name %></a></p>
-        </div>
-      <% } else if (video.type === 'channel') { %>
-        <div class="result-item">
-          <a href="/c/<%= video.channelID %>">
-            <img src="https://wakamecomment.glitch.me/ytc/<%= video.id %>" alt="<%= video.name %>">
-          </a>
-          <p class="video-title"><%= video.name %></p>
-          <p class="video-description"><%= video.description || video.descriptionShort %></p>
-          <p class="video-meta"><%= video.subscribers %> subscribers</p>
-        </div>
-      <% } %>
     <% }); %>
   </div>
   
