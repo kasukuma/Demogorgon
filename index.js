@@ -141,6 +141,23 @@ app.get("/wkt/home", async (req, res) => {
   }
 });
 
+//設定
+app.get('/wkt/setting', (req, res) => {
+    const cookies = parseCookies(req);
+    const wakametubeumekomi = cookies.wakametubeumekomi === 'true';
+    res.render('setting.ejs', { wakametubeumekomi });
+});
+
+app.post('/wkt/setting', (req, res) => {
+    const wakametubeumekomi = req.body.wakametubeumekomi === 'on';
+
+    res.setHeader('Set-Cookie', [
+        `wakametubeumekomi=${wakametubeumekomi}; HttpOnly; Max-Age=31536000`
+    ]);
+    
+    res.redirect('/wkt/setting');
+});
+
 app.get('/wkt/w/:id', async (req, res) => {
   const videoId = req.params.id;
     let cookies = parseCookies(req);

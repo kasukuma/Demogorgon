@@ -13,15 +13,14 @@
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/font.css">
   <link rel="stylesheet" href="/css/plyr.css">
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/wakastyles.css">
   <script src="/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 <header>
   <div class="banner">
-   <button class="btn btn-link" onclick="window.location.href='/'">ホーム🏠</button>
-   <button class="btn btn-link" onclick="window.location.href='/blog'">お知らせ</button>
+   <button class="btn btn-link" onclick="window.location.href='/wkt/home'">ホーム🏠</button>
    <form class="d-flex" action="/s">
     <input type="text" name="q" class="form-control" placeholder="キーワードを入力..." required>
    </form>
@@ -33,14 +32,11 @@
     <source src="<%= videoData.highstreamUrl %>" type="video/mp4">
     読み込み失敗。ブラウザをアップデートしてどうぞ。
   </video>
-  </div>
-<div class="card">
-   <div class="toolcard-header">
-     <audio id="audio" controls>
+    <audio id="audio" controls>
         <source src="<%= audioUrl %>">
     </audio>
-    <button id="syncButton">オーディオの位置を動画に合わせる</button>
   </div>
+<div class="card">
   <div class="toolcard-header">
     <small class="text-muted">ツール　　<button id="reloadButton">動画を再読み込み</button></small>
   </div>
@@ -63,7 +59,7 @@
   <div class="comment-box">
     <h2>コメント</h2>
     <div class="iframe-container">
-      <iframe src=wkt/"/comment/<%= videoId %>" scrolling="yes"></iframe>
+      <iframe src="/wkt/comment/<%= videoId %>" scrolling="yes"></iframe>
     </div>
   </div>
 <style>
@@ -184,11 +180,14 @@ video {
       padding: 20px;
       text-align: left;
       box-sizing: border-box;
+  }
+   #audio {
+        display: none;
+    }
 </style>
     <script>
         const video = document.getElementById('video');
         const audio = document.getElementById('audio');
-        const syncButton = document.getElementById('syncButton');
 
         video.addEventListener('loadedmetadata', () => {
             video.play().catch(error => {
@@ -204,11 +203,24 @@ video {
 
         video.addEventListener('pause', () => {
             audio.pause();
+            audio.currentTime = video.currentTime;
         });
 
         video.addEventListener('ended', () => {
             audio.pause();
             audio.currentTime = 0; 
+        });
+      
+        video.addEventListener('seeked', () => {
+            video.pause();
+            audio.pause();
+            audio.currentTime = video.currentTime;
+        });
+      
+        video.addEventListener('timeupdate', () => {
+            if (Math.abs(video.currentTime - audio.currentTime) > 0.5) {
+                audio.currentTime = video.currentTime;
+            }
         });
 
         syncButton.addEventListener('click', () => {
