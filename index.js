@@ -9,6 +9,7 @@ import ejs from 'ejs';
 import axios from 'axios';
 import miniget from 'miniget';
 import ytpl from 'ytpl';
+import ytsr from 'ytsr';
 
 const __dirname = process.cwd();
 const server = http.createServer();
@@ -140,6 +141,28 @@ app.get("/wkt/c/:id", async (req, res) => {
 			title: "ytpl Error",
 			content: error
 		});
+	}
+});
+
+app.get("/s", async (req, res) => {
+	let query = req.query.q;
+	let page = Number(req.query.p || 2);
+    try {
+		res.render("search.ejs", {
+			res: await ytsr(query, { limit, pages: page }),
+			query: query,
+			page
+		});
+	} catch (error) {
+		console.error(error);
+		try {
+			res.status(500).render("error.ejs", {
+				title: "ytsr Error",
+				content: error
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	}
 });
 

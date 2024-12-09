@@ -21,6 +21,7 @@
     "express": "^4.18.2",
     "miniget": "latest",
     "ytpl": "^2.x",
+    "ytsr": "latest",
     "axios": "^1.7.9"
   },
   "devDependencies": {
