@@ -163,13 +163,13 @@ app.get('/wkt/w/:id', async (req, res) => {
     const videoId = req.params.id;
     const server = req.query.server || '0';
     const serverUrls = {
-        '0': 'https://wataamee.glitch.me',
-        '1': 'https://battle-deciduous-bear.glitch.me',
+        '0': 'https://battle-deciduous-bear.glitch.me',
+        '1': 'https://wataamee.glitch.me',
         '2': 'https://watawatawata.glitch.me',
         '3': 'https://amenable-charm-lute.glitch.me',
     };
 
-    const baseUrl = serverUrls[server] || 'https://wataamee.glitch.me';
+    const baseUrl = serverUrls[server] || 'https://battle-deciduous-bear.glitch.me';
 
     if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
         return res.status(400).send('不正なvideoID');
