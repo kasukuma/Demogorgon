@@ -65,7 +65,7 @@ app.get('/login', (req, res) => {
 // パスワード確認
 app.post('/login', (req, res) => {
     const password = req.body.password;
-    if (password === 'wakame') {
+    if (password === 'massiro') {
         res.cookie('massiropass', 'ok', { maxAge: 5 * 24 * 60 * 60 * 1000, httpOnly: true });
         
         const redirectTo = req.session.redirectTo || '/';
@@ -159,25 +159,46 @@ app.post('/wkt/setting', (req, res) => {
 });
 
 app.get('/wkt/w/:id', async (req, res) => {
-  const videoId = req.params.id;
-    let cookies = parseCookies(req);
-    let wakames = cookies.wakametubeumekomi === 'true';
-    if (wakames) {
-    res.redirect(`/wkt/umekomi/${videoId}`);
+    const videoId = req.params.id;
+    const server = req.query.server || '0';
+    const serverUrls = {
+        '0': 'https://wataamee.glitch.me',
+        '1': 'https://wataamee1.glitch.me',
+        '2': 'https://wataamee2.glitch.me',
+        '3': 'https://wataamee3.glitch.me',
+        '4': 'https://wataamee4.glitch.me',
+    };
+
+    const baseUrl = serverUrls[server] || serverUrls['0'];
+
+    if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
+        return res.status(400).send('Invalid video ID format');
     }
+
+    const cookies = parseCookies(req);
+    const wakames = cookies.wakametubeumekomi === 'true';
+    if (wakames) {
+        return res.redirect(`/wkt/umekomi/${videoId}`);
+    }
+
     try {
-        const response = await axios.get(`https://wataamee.glitch.me/api/${videoId}?token=wakameoishi`);
+        const response = await axios.get(`${baseUrl}/api/${videoId}`, {
+            params: { token: process.env.WAKAME_API_TOKEN },
+        });
+
         const videoData = response.data;
         console.log(videoData);
 
         res.render('infowatch', { videoData, videoId });
-  } catch (error) {
-        res.status(500).render('matte', { 
-      videoId, 
-      error: '動画を取得できません', 
-      details: error.message 
-    });
-  }
+    } catch (error) {
+        console.error(`Failed to fetch video data: ${error.message}`, error.response?.data);
+
+        res.status(500).render('matte', {
+            videoId,
+            error: '動画を取得できません',
+            details: error.message,
+        });
+    }
 });
 
 //高画質再生！！

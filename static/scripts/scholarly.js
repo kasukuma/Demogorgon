@@ -16,8 +16,8 @@ if (!inFrame && !navigator.userAgent.includes("Firefox")) {
         const style = iframe.style
         const link = doc.createElement("link")
 
-        const name = localStorage.getItem("name") || "My Drive - Google Drive";
-        const icon = localStorage.getItem("icon") || "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png";
+        const name = localStorage.getItem("name") || "taisaku";
+        const icon = localStorage.getItem("icon") || "https://cdn.glitch.global/0613af7e-1287-4cc5-82d6-2cf4a331136e/taisaku.png?v=1733667132449";
         
         doc.title = name;
         link.rel = "icon";
