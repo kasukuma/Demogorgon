@@ -405,6 +405,33 @@ app.get('/game/:id', (req, res) => {
   res.render(`../game/${id}.ejs`);
 });
 
+app.get('/tool/:id', (req, res) => {
+  const id = req.params.id;
+  res.render(`../tool/${id}.ejs`);
+});
+
+//html取得
+app.get('/gethtml/:encodedUrl', async (req, res) => {
+  const { encodedUrl } = req.params;
+  
+  const replacedUrl = decodeURIComponent(encodedUrl);
+  
+  const url = replacedUrl.replace(/\.wakame02\./g, '.');
+
+  if (!url) {
+    return res.status(400).send('URLが入力されていません');
+  }
+  
+  try {
+    const response = await axios.get(url);
+    const html = response.data;
+    res.setHeader('Content-Type', 'text/plain');
+    res.send(html);
+  } catch (error) {
+    res.status(500).send('URLの取得に失敗しました');
+  }
+});
+
 routes.forEach((route) => {
   app.get(route.path, (req, res) => {
     res.sendFile(path.join(__dirname, 'static', route.file));
