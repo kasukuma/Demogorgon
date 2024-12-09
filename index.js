@@ -382,8 +382,9 @@ app.get('/wakamc', async (req, res) => {
     }
 
     try {
-        const searchResults = await scdl.search({ query: query, resourceType: 'tracks' });
-
+        const response = await axios.get(`https://wataamee.glitch.me/wakamc/api?q=${query}`);
+        const searchResults = response.data;
+      
         const tracks = searchResults.collection.slice(0, 10).map(track => ({
             id: track.id,
             title: track.title,
