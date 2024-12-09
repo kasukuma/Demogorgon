@@ -10,6 +10,7 @@ import axios from 'axios';
 import miniget from 'miniget';
 import ytpl from 'ytpl';
 import ytsr from 'ytsr';
+import bodyParser from 'body-parser';
 
 const __dirname = process.cwd();
 const server = http.createServer();
@@ -20,13 +21,13 @@ const PORT = 8080;
 const limit = process.env.LIMIT || 50;
 const user_agent = process.env.USER_AGENT || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36";
 
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.set('view engine', 'ejs');
-
 app.use(cookieParser());
+app.use(bodyParser.json());
+
 app.use(session({
     secret: 'wakamedayoooooooooooharusameeeeeee',
     resave: false,
@@ -87,6 +88,20 @@ app.post('/logout', (req, res) => {
     res.cookie('pass', 'false', { maxAge: 1, httpOnly: true });
     return res.redirect('/login');
 });
+//cookie
+function parseCookies(request) {
+    const list = {};
+    const cookieHeader = request.headers.cookie;
+
+    if (cookieHeader) {
+        cookieHeader.split(';').forEach(cookie => {
+            let parts = cookie.split('=');
+            list[parts.shift().trim()] = decodeURI(parts.join('='));
+        });
+    }
+
+    return list;
+}
 
 const routes = [
   { path: '/', file: 'index.html' },
@@ -126,8 +141,65 @@ app.get("/wkt/home", async (req, res) => {
   }
 });
 
+app.get('/wkt/w/:id', async (req, res) => {
+  const videoId = req.params.id;
+    let cookies = parseCookies(req);
+    let wakames = cookies.wakametubeumekomi === 'true';
+    if (wakames) {
+    res.redirect(`/wkt/umekomi/${videoId}`);
+    }
+    try {
+        const response = await axios.get(`https://wataamee.glitch.me/api/${videoId}?token=wakameoishi`);
+        const videoData = response.data;
+        console.log(videoData);
+
+        res.render('infowatch', { videoData, videoId });
+  } catch (error) {
+        res.status(500).render('matte', { 
+      videoId, 
+      error: '動画を取得できません', 
+      details: error.message 
+    });
+  }
+});
+
+//高画質再生！！
+app.get('/wkt/www/:id', async (req, res) => {
+  const videoId = req.params.id;
+    try {
+        const response = await axios.get(`https://wataamee.glitch.me/api/${videoId}?token=wakameoishi`);
+        const videoData = response.data;
+
+        res.render('highquo', { videoData, videoId });
+  } catch (error) {
+        res.status(500).render('matte', { 
+      videoId, 
+      error: '動画を取得できません', 
+      details: error.message 
+    });
+  }
+});
+
+//音だけ再生
+app.get('/wkt/ll/:id', async (req, res) => {
+  const videoId = req.params.id;
+
+    try {
+        const response = await axios.get(`https://wataamee.glitch.me/api/${videoId}?token=wakameoishi`);
+        const videoData = response.data;
+
+        res.render('listen', { videoData, videoId });
+   } catch (error) {
+        res.status(500).render('matte', { 
+      videoId, 
+      error: '動画を取得できません', 
+      details: error.message 
+    });
+  }
+});
+
 //埋め込み再生
-app.get('/umekomi/:id', async (req, res) => {
+app.get('/wkt/umekomi/:id', async (req, res) => {
   let videoId = req.params.id;
   let url = `https://www.youtube.com/watch?v=${videoId}`;
   
