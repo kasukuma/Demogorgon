@@ -25,9 +25,8 @@
 <body>
 <header>
   <div class="banner">
-   <button class="btn btn-link" onclick="window.location.href='/'">ホーム🏠</button>
-   <button class="btn btn-link" onclick="window.location.href='/send'">問い合わせ</button>
-  <button class="btn btn-link" onclick="window.location.href='/blog/help'">ヘルプ</button>
+   <button class="btn btn-link" onclick="window.location.href='/wkt/home'">ホーム🏠</button>
+   <button class="btn btn-link" onclick="window.location.href='/wkt/setting'">設定</button>
       <form class="d-flex" action="/s" method="get">
           <input id="searchbox" name="q" class="form-control" type="text" placeholder="キーワードを入力..." aria-label="Search" required>
       </form>
@@ -42,10 +41,9 @@
         <span class="checkmark"></span>
         </label></li>
         <li><a href="<%= videoData.stream_url %>" target="_blank">ストリームURLに移動</a></li>
-        <li><a href="/ll/<%= videoData.videoId %>">音のみで再生する</a></li>
-        <li><a href="/www/<%= videoData.videoId %>">高画質で再生する</a></li>
+        <li><a href="/wkt/ll/<%= videoData.videoId %>">音のみで再生する</a></li>
+        <li><a href="/wkt/www/<%= videoData.videoId %>">高画質で再生する</a></li>
         <li><a href="/vi/<%= videoData.videoId %>/maxresdefault.jpg" target="_blank">サムネイルをダウンロード</a></li>
-        <li><a href="/wakamehistory">再生履歴</a></li>
     </ul>
 </nav>
 <div id="overlay" class="overlay"></div>

@@ -107,7 +107,7 @@ const routes = [
   { path: '/', file: 'index.html' },
   { path: '/news', file: 'apps.html' },
   { path: '/events', file: 'games.html' },
-  { path: '/diagnostic', file: 'settings.html' },
+  { path: '/send', file: 'send.html' },
   { path: '/local-news', file: 'tabs.html' },
   { path: '/image-galleries', file: 'go.html' },
 ];
