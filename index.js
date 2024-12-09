@@ -38,7 +38,6 @@ app.use(session({
 // 読み込み時ちぇっく
 app.use((req, res, next) => {
     if (req.cookies.massiropass !== 'ok' && !req.path.includes('login')) {
-        req.session.redirectTo = req.path !== '/' ? req.path : null;
         return res.redirect('/login');
     } else {
         next();
@@ -68,9 +67,7 @@ app.post('/login', (req, res) => {
     if (password === 'massiro') {
         res.cookie('massiropass', 'ok', { maxAge: 5 * 24 * 60 * 60 * 1000, httpOnly: true });
         
-        const redirectTo = req.session.redirectTo || '/';
-        delete req.session.redirectTo;
-        return res.redirect(redirectTo);
+        return res.redirect("/");
     } else {
         if (password === 'ohana') {
             return res.redirect('https://ohuaxiehui.webnode.jp');
@@ -163,10 +160,10 @@ app.get('/wkt/w/:id', async (req, res) => {
     const server = req.query.server || '0';
     const serverUrls = {
         '0': 'https://wataamee.glitch.me',
-        '1': 'https://wataamee1.glitch.me',
-        '2': 'https://wataamee2.glitch.me',
-        '3': 'https://wataamee3.glitch.me',
-        '4': 'https://wataamee4.glitch.me',
+        '1': 'https://watawatawata.glitch.me',
+        '2': 'https://watawatawata.glitch.me',
+        '3': 'https://wataamee.glitch.me',
+        '4': 'https://wataamee.glitch.me',
     };
 
     const baseUrl = serverUrls[server] || serverUrls['0'];
