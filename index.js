@@ -11,6 +11,7 @@ import miniget from 'miniget';
 import ytpl from 'ytpl';
 import ytsr from 'ytsr';
 import bodyParser from 'body-parser';
+import scdl from 'soundcloud-downloader';
 
 const __dirname = process.cwd();
 const server = http.createServer();
@@ -367,6 +368,34 @@ app.get('/suggest', (req, res) => {
         res.status(500).send({ error: 'えらー。あらら' });
     });
     request.end();
+});
+
+app.get('/wakams', (req, res) => {
+    res.render('wakamusic', { tracks: [] , query: [] });
+});
+
+app.get('/wakamc', async (req, res) => {
+    const query = req.query.q;
+
+    if (!query) {
+        return res.status(400).send('Search query is required');
+    }
+
+    try {
+        const searchResults = await scdl.search({ query: query, resourceType: 'tracks' });
+
+        const tracks = searchResults.collection.slice(0, 10).map(track => ({
+            id: track.id,
+            title: track.title,
+            username: track.user.username,
+            artwork_url: track.artwork_url ? track.artwork_url.replace('-large', '-t500x500') : 'https://via.placeholder.com/500'
+        }));
+
+        res.render('wakamusic', { tracks: tracks , query: query });
+    } catch (error) {
+        console.error('Error occurred while searching:', error);
+        res.status(500).send('えらー。あらら');
+    }
 });
 
 routes.forEach((route) => {
