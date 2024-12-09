@@ -35,7 +35,6 @@ app.use(session({
 //ログイン
 // 読み込み時ちぇっく
 app.use((req, res, next) => {
-    console.log("welcome!");
     if (req.cookies.massiropass !== 'ok' && !req.path.includes('login')) {
         req.session.redirectTo = req.path !== '/' ? req.path : null;
         return res.redirect('/login');
@@ -64,7 +63,7 @@ app.get('/login', (req, res) => {
 // パスワード確認
 app.post('/login', (req, res) => {
     const password = req.body.password;
-    if (password === 'harusame') {
+    if (password === 'wakame') {
         res.cookie('massiropass', 'ok', { maxAge: 5 * 24 * 60 * 60 * 1000, httpOnly: true });
         
         const redirectTo = req.session.redirectTo || '/';
@@ -117,18 +116,8 @@ app.get('/edu/*', cors({ origin: false }), async (req, res, next) => {
 //わかめtube
 app.get("/wkt/home", async (req, res) => {
   try {
-    const response = await axios.get(`https://wataamee.glitch.me/topvideos/api`);
-    const data = response.data;
-    const videoCount = {};
-    data.forEach(({ videoId, videoTitle, channelName, channelId }) => {
-      if (!videoCount[videoId]) {
-        videoCount[videoId] = { count: 0, videoTitle, channelName, channelId };
-      }
-      videoCount[videoId].count += 1;
-    });
-    const topVideos = Object.entries(videoCount)
-      .sort((a, b) => b[1].count - a[1].count)
-      .slice(0, 25);
+    const response = await axios.get(`https://wataamee.glitch.me/topvideos/apiv2`);
+    const topVideos = response.data;
     res.render("wakametube.ejs", { topVideos });
   } catch (error) {
     console.error('エラーが発生しました:', error);
