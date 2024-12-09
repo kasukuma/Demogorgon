@@ -16,7 +16,7 @@
   <meta name="author" content="わかめtube | まっしろ">
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/font.css">
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/wakastyles.css">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -27,7 +27,6 @@
   <header>
     <div class="banner">
       <button class="btn btn-link" onclick="window.location.href='/wkt/home'">ホーム🏠</button>
-      <button class="btn btn-link" onclick="window.location.href='/blog'">お知らせ</button>
       <form class="d-flex" action="/s" method="get">
           <input id="searchbox" name="q" class="form-control" type="text" placeholder="キーワードを入力..." aria-label="Search" value="<%= query %>" required>
       </form>
@@ -48,11 +47,11 @@
           </div>
       <% } else if (video.type === 'playlist') { %>
         <div class="playresult-item">
-          <a href="/p/<%= video.playlistID %>">
+          <a href="/wkt/p/<%= video.playlistID %>">
             <img style="opacity: 0.5" src="<%= video.firstVideo.bestThumbnail.url.slice(19) %>" alt="<%= video.title %>">
           </a>
           <p class="video-title">プレイリスト(<%= video.length %>本以上の動画)</p>
-          <p class="channel-name"><a href="/wkt/u/<%= video.owner.id %>"><%= video.owner.name %></a></p>
+          <p class="channel-name"><a href="/wkt/c/<%= video.owner.id %>"><%= video.owner.name %></a></p>
         </div>
       <% } else if (video.type === 'channel') { %>
         <div class="result-item">

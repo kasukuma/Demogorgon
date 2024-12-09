@@ -126,6 +126,36 @@ app.get("/wkt/home", async (req, res) => {
   }
 });
 
+//埋め込み再生
+app.get('/umekomi/:id', async (req, res) => {
+  let videoId = req.params.id;
+  let url = `https://www.youtube.com/watch?v=${videoId}`;
+  
+  try {
+    const inforesponse = await axios.get(url);
+    const html = inforesponse.data;
+
+    const titleMatch = html.match(/"title":\{.*?"text":"(.*?)"/);
+    const descriptionMatch = html.match(/"attributedDescriptionBodyText":\{.*?"content":"(.*?)","commandRuns/);
+    const viewsMatch = html.match(/"views":\{.*?"simpleText":"(.*?)"/);
+    const channelImageMatch = html.match(/"channelThumbnail":\{.*?"url":"(.*?)"/);
+    const channelNameMatch = html.match(/"channel":\{.*?"simpleText":"(.*?)"/);
+    const channnelIdMatch = html.match(/"browseEndpoint":\{.*?"browseId":"(.*?)"/);
+
+    const videoTitle = titleMatch ? titleMatch[1] : 'タイトルを取得できませんでした';
+    const videoDes = descriptionMatch ? descriptionMatch[1].replace(/\\n/g, '\n') : '概要を取得できませんでした';
+    const videoViews = viewsMatch ? viewsMatch[1] : '再生回数を取得できませんでした';
+    const channelImage = channelImageMatch ? channelImageMatch[1] : '取得できませんでした';
+    const channelName = channelNameMatch ? channelNameMatch[1] : '取得できませんでした';
+    const channelId = channnelIdMatch ? channnelIdMatch[1] : '取得できませんでした';
+    
+    res.render('umekomi.ejs', { videoId, videoTitle, videoDes, videoViews, channelImage, channelName, channelId});
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('matte', { videoId, error: '動画情報を取得できません', details: error.message });
+  }
+});
+
 // チャンネル
 app.get("/wkt/c/:id", async (req, res) => {
 	if (!req.params.id) return res.redirect("/");
@@ -178,6 +208,22 @@ app.get("/vi*", (req, res) => {
 		res.status(500).send(err.toString());
 	});
 	stream.pipe(res);
+});
+
+app.get('/wkt/comment/:id', async (req, res) => {
+  const videoId = req.params.id;
+    try {
+        const response = await axios.get(`https://wakamecomment.glitch.me/api/wakame/${videoId}`);
+        const cm = response.data;
+
+        res.render('comment', { cm });
+   } catch (error) {
+        res.status(500).render('error', { 
+      videoId, 
+      error: 'コメントを取得できません', 
+      details: error.message 
+    });
+  }
 });
 
 //サジェスト
