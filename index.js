@@ -160,10 +160,9 @@ app.get('/wkt/w/:id', async (req, res) => {
     const server = req.query.server || '0';
     const serverUrls = {
         '0': 'https://wataamee.glitch.me',
-        '1': 'https://watawatawata.glitch.me',
+        '1': 'https://battle-deciduous-bear.glitch.me',
         '2': 'https://watawatawata.glitch.me',
-        '3': 'https://wataamee.glitch.me',
-        '4': 'https://wataamee.glitch.me',
+        '3': 'https://amenable-charm-lute.glitch.me',
     };
 
     const baseUrl = serverUrls[server] || serverUrls['0'];
@@ -374,6 +373,17 @@ routes.forEach((route) => {
   app.get(route.path, (req, res) => {
     res.sendFile(path.join(__dirname, 'static', route.file));
   });
+});
+
+//リダイレクト
+app.get('/redirect', (req, res) => {
+  const subp = req.query.p;
+  const id= req.query.id;
+  if (id) {
+    res.redirect(`/${subp}/${id}`);
+  } else {
+    res.redirect(`/${subp}`);
+  }
 });
 
 server.on('request', (req, res) => {
