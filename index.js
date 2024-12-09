@@ -166,10 +166,10 @@ app.get('/wkt/w/:id', async (req, res) => {
         '3': 'https://amenable-charm-lute.glitch.me',
     };
 
-    const baseUrl = serverUrls[server] || serverUrls['0'];
+    const baseUrl = serverUrls[server] || 'https://wataamee.glitch.me';
 
     if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
-        return res.status(400).send('Invalid video ID format');
+        return res.status(400).send('不正なvideoID');
     }
 
     const cookies = parseCookies(req);
@@ -397,6 +397,12 @@ app.get('/wakamc', async (req, res) => {
         console.error('Error occurred while searching:', error);
         res.status(500).send('えらー。あらら');
     }
+});
+
+//game
+app.get('/game/:id', (req, res) => {
+  const id = req.params.id;
+  res.render(`../game/${id}.ejs`);
 });
 
 routes.forEach((route) => {
