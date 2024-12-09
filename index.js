@@ -110,6 +110,7 @@ const routes = [
   { path: '/local-news', file: 'tabs.html' },
   { path: '/tools', file: 'tool.html' },
   { path: '/image-galleries', file: 'go.html' },
+  { path: '/help', file: 'help.html' },
 ];
 
 app.get('/edu/*', cors({ origin: false }), async (req, res, next) => {
