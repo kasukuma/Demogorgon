@@ -104,6 +104,7 @@ function parseCookies(request) {
 const routes = [
   { path: '/', file: 'index.html' },
   { path: '/news', file: 'apps.html' },
+  { path: '/g/app', file: 'game.html' },
   { path: '/events', file: 'games.html' },
   { path: '/send', file: 'send.html' },
   { path: '/local-news', file: 'tabs.html' },
