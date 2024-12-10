@@ -57,9 +57,6 @@ app.get('/login/if', async (req, res) => {
 });
 // ログインページ
 app.get('/login', (req, res) => {
-    let referer = req.get('Referer') || 'No referer information';
-    let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    console.log(`URL: ${referer} から来た, IP: ${ip}`);
     res.render('../login/login.ejs', { error: null });
 });
 // パスワード確認
