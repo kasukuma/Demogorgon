@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   const appsList = [
     {
+      name: "Chatwork",
+      link: "https://chatwork.com/",
+      image: "https://cdn.glitch.global/0613af7e-1287-4cc5-82d6-2cf4a331136e/IMG_2270.png",
+      categories: ["all", "media"],
+      error: false
+    },
+    {
       name: "Amazon",
       link: "https://amazon.com/",
       image: "/images/icons/apps/amazon.png",
@@ -40,13 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
       link: "https://coolmathgames.com",
       image: "/images/icons/apps/coolmath.png",
       categories: ["all", "game"],
-      error: false
-    },
-    {
-      name: "Discord",
-      link: "https://canary.discord.com",
-      image: "/images/icons/apps/discord.jpg",
-      categories: ["all", "social"],
       error: false
     },
     {
@@ -113,38 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
       error: false
     },
     {
-      name: "Messenger",
-      link: "https://messenger.com/",
-      image: "/images/icons/apps/messenger.png",
-      categories: ["all", "social", "message"],
-      error: false
-    },
-    {
-      name: "Paramount Plus",
-      link: "https://paramountplus.com",
-      image: "/images/icons/apps/paramount.png",
-      categories: ["all", "stream"],
-      error: false
-    },
-    {
-      name: "Pinterest",
-      link: "https://pinterest.com",
-      image: "/images/icons/apps/pinterest.png",
-      categories: ["all", "media"],
-      error: false
-    },
-    {
       name: "Pixlr",
       link: "https://pixlr.com/",
       image: "/images/icons/pix.png",
       categories: ["all", "media"],
-      error: false
-    },
-    {
-      name: "Poki",
-      link: "https://poki.com",
-      image: "/images/icons/apps/poki.png",
-      categories: ["all", "game"],
       error: false
     },
     {
@@ -153,14 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
       image: "/images/icons/apps/soundcloud.jpg",
       categories: ["all", "media"],
       error: false
-    },
-    {
-      name: "Spotify",
-      link: "https://open.spotify.com",
-      image: "/images/icons/apps/spotify.png",
-      categories: ["all", "media"],
-      say: "Spotify is currently not working on the proxy.",
-      error: true
     },
     {
       name: "Telegram",
@@ -191,13 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
       error: false
     },
     {
-      name: "Twitter",
-      link: "https://twitter.com",
-      image: "/images/icons/apps/twitter.png",
-      categories: ["all", "social", "media"],
-      error: false
-    },
-    {
       name: "VS Code",
       link: "https://vscode.dev",
       image: "/images/icons/apps/vscode.png",
@@ -209,27 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
       link: "https://y8.com/",
       image: "/images/icons/apps/y8.png",
       categories: ["all", "game"],
-      error: false
-    },
-    {
-      name: "YouTube",
-      link: "https://youtube.com",
-      image: "/images/icons/apps/yt.png",
-      categories: ["all", "social", "stream", "media"],
-      error: false
-    },
-    {
-      name: "Whatsapp",
-      link: "https://web.whatsapp.com/",
-      image: "/images/icons/apps/whatsapp.png",
-      categories: ["all", "message", "social"],
-      error: false
-    },
-    {
-      name: "Wattpad",
-      link: "https://wattpad.com/",
-      image: "/images/icons/apps/wattpad.webp",
-      categories: ["all", "social"],
       error: false
     },
     {
