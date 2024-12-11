@@ -68,6 +68,7 @@ a:hover {
       const userConsent = confirm("By using this site, you agree to the Terms of Service and the Cookie Policy. Do you accept?");
       if (!userConsent) {
         window.location.href = "https://www.google.com";
+        return;
       }
       alert("ようこそ！まっしろな世界へ！");
     };
