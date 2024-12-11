@@ -159,14 +159,26 @@ app.get('/wkt/w/:id', async (req, res) => {
     const videoId = req.params.id;
     const server = req.query.server || '0';
     const serverUrls = {
-        '0': 'https://battle-deciduous-bear.glitch.me',
+        '0': [
+        'https://battle-deciduous-bear.glitch.me',
+        'https://balsam-secret-fine.glitch.me',
+        'https://productive-noon-van.glitch.me',
+        ],
         '1': 'https://wataamee.glitch.me',
         '2': 'https://watawatawata.glitch.me',
         '3': 'https://amenable-charm-lute.glitch.me',
+        '4': 'https://productive-noon-van.glitch.me',
+        '5': 'https://balsam-secret-fine.glitch.me',
     };
 
-    const baseUrl = serverUrls[server] || 'https://battle-deciduous-bear.glitch.me';
-
+    let baseUrl;
+    if (server === '0') {
+        const randomIndex = Math.floor(Math.random() * serverUrls['0'].length); // A, B, C のいずれかをランダム選択
+        baseUrl = serverUrls['0'][randomIndex];
+    } else {
+        baseUrl = serverUrls[server] || 'https://battle-deciduous-bear.glitch.me'; // デフォルトは '0' のサーバー
+    }
+  
     if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
         return res.status(400).send('不正なvideoID');
     }
