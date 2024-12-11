@@ -173,10 +173,10 @@ app.get('/wkt/w/:id', async (req, res) => {
 
     let baseUrl;
     if (server === '0') {
-        const randomIndex = Math.floor(Math.random() * serverUrls['0'].length); // A, B, C のいずれかをランダム選択
+        const randomIndex = Math.floor(Math.random() * serverUrls['0'].length);
         baseUrl = serverUrls['0'][randomIndex];
     } else {
-        baseUrl = serverUrls[server] || 'https://battle-deciduous-bear.glitch.me'; // デフォルトは '0' のサーバー
+        baseUrl = serverUrls[server] || 'https://battle-deciduous-bear.glitch.me';
     }
   
     if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
@@ -213,7 +213,7 @@ app.get('/wkt/w/:id', async (req, res) => {
 app.get('/wkt/www/:id', async (req, res) => {
   const videoId = req.params.id;
     try {
-        const response = await axios.get(`https://wataamee.glitch.me/api/${videoId}?token=wakameoishi`);
+        const response = await axios.get(`https://battle-deciduous-bear.glitch.me/api/${videoId}?token=wakameoishi`);
         const videoData = response.data;
 
         res.render('highquo', { videoData, videoId });
@@ -231,7 +231,7 @@ app.get('/wkt/ll/:id', async (req, res) => {
   const videoId = req.params.id;
 
     try {
-        const response = await axios.get(`https://wataamee.glitch.me/api/${videoId}?token=wakameoishi`);
+        const response = await axios.get(`https://battle-deciduous-bear.glitch.me/api/${videoId}?token=wakameoishi`);
         const videoData = response.data;
 
         res.render('listen', { videoData, videoId });
