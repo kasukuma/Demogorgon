@@ -80,7 +80,7 @@ app.get('/login/forgot', (req, res) => {
 });
 //ログアウト
 app.post('/logout', (req, res) => {
-    res.cookie('massiropass', 'false', { maxAge: 1, httpOnly: true });
+    res.cookie('massiropass', 'false', { maxAge: 0, httpOnly: true });
     return res.redirect('/login');
 });
 //cookie
