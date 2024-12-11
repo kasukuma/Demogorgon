@@ -8,16 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
       error: false
     },
     {
-      name: "Amazon",
-      link: "https://amazon.com/",
-      image: "/images/icons/apps/amazon.png",
+      name: "捨てメアド",
+      link: "https://adguard.com/ja/adguard-temp-mail/overview.html",
+      image: "https://cdn.glitch.global/0613af7e-1287-4cc5-82d6-2cf4a331136e/IMG_2271.png?v=1733902540570",
       categories: ["all", "media"],
       error: false
     },
     {
-      name: "BuzzFeed Quizzes",
-      link: "https://buzzfeed.com/quizzes",
-      image: "/images/icons/apps/buzzfeed.png",
+      name: "Amazon",
+      link: "https://amazon.com/",
+      image: "/images/icons/apps/amazon.png",
       categories: ["all", "media"],
       error: false
     },
@@ -57,20 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
       error: false
     },
     {
-      name: "ESPN",
-      link: "https://www.espn.com/watch/",
-      image: "/images/icons/apps/espn.webp",
-      categories: ["all", "media"],
-      error: false
-    },
-    {
-      name: "Fifa Rosters",
-      link: "https://fifarosters.com/",
-      image: "/images/icons/fifa.png",
-      categories: ["all", "media"],
-      error: false
-    },
-    {
       name: "Firefox Web Browser",
       link: "https://replit.com/@cooleddie001/Firefox-Legacy?v=1",
       image: "/images/icons/apps/firefox.png",
@@ -103,13 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
       link: "https://google.com",
       image: "/images/icons/apps/google.png",
       categories: ["all", "media"],
-      error: false
-    },
-    {
-      name: "HBO MAX",
-      link: "https://www.hbomax.com/",
-      image: "/images/icons/apps/hbo.webp",
-      categories: ["all", "stream"],
       error: false
     },
     {
