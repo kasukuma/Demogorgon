@@ -11,7 +11,6 @@ import miniget from 'miniget';
 import ytpl from 'ytpl';
 import ytsr from 'ytsr';
 import bodyParser from 'body-parser';
-import scdl from 'soundcloud-downloader';
 
 const __dirname = process.cwd();
 const server = http.createServer();
