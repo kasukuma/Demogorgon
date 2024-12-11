@@ -63,6 +63,15 @@ a:hover {
     color: #FFA6C9;
 }
     </style>
+  <script>
+    window.onload = function() {
+      const userConsent = confirm("By using this site, you agree to the Terms of Service and the Cookie Policy. Do you accept?");
+      if (!userConsent) {
+        window.location.href = "https://www.google.com";
+      }
+      alert("ようこそ！まっしろな世界へ！");
+    };
+  </script>
 </head>
 <body>
     <div class="container">

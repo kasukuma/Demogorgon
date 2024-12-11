@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'static')));
 //ログイン済み？
 app.get('/login/if', async (req, res) => {
     if (req.cookies.massiropass !== 'ok') {
-        res.render('login', { error: 'ログインしていません。もう一度ログインして下さい' })
+        res.render('../login/login.ejs', { error: 'ログインしていません。もう一度ログインして下さい' })
     } else {
         return res.redirect('/');
     }
@@ -80,7 +80,7 @@ app.get('/login/forgot', (req, res) => {
 });
 //ログアウト
 app.post('/logout', (req, res) => {
-    res.cookie('pass', 'false', { maxAge: 1, httpOnly: true });
+    res.cookie('massiropass', 'false', { maxAge: 1, httpOnly: true });
     return res.redirect('/login');
 });
 //cookie
