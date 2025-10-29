@@ -41,7 +41,7 @@ app.use((req, res, next) => {
     }
 });
 
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 //ログイン済み？
 app.get('/login/if', async (req, res) => {
