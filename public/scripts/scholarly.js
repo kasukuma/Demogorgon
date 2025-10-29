@@ -31,7 +31,7 @@ if (!inFrame && !navigator.userAgent.includes("Firefox")) {
 
         doc.head.appendChild(link);
         doc.body.appendChild(iframe)
-        location.replace("https://www.nasa.gov/")
+        location.replace("https://student.atama.plus/public/login/")
     }
 }
 
