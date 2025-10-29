@@ -1,85 +1,45 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
-     <link rel="shortcut icon" id="dynamic-favicon" href="https://cdn.glitch.global/0613af7e-1287-4cc5-82d6-2cf4a331136e/taisaku.png">
+    <link rel="shortcut icon" id="dynamic-favicon" href="https://cdn.glitch.global/0613af7e-1287-4cc5-82d6-2cf4a331136e/taisaku.png">
     <title id="dynamic-title">Taisaku</title>
+    <script src="./contact/mathematics.js"></script>
+    <script src="./contact/geography.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Space.com is your source for the latest astronomy news and space discoveries, live coverage of space flights and the science of space travel.">
+    <meta name="keywords" content="Computer Science, Technology, Photography, Nature, Tech Support, Tech Help, Local Tech Support">
+    <link rel="canonical" href="https://www.space.com/news">
+    <!-- Site Stylesheets -->
+    <link rel="stylesheet" href="/css/m.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Main Site Scripts -->
+    <script src="/scripts/learning.js"></script>
     <script src="https://kit.fontawesome.com/1237c86ba0.js" crossorigin="anonymous"></script>
-    <!--- Style --->
-    <style>
-      body {
-        margin: 0;
-      }
-
-      iframe {
-        display: block;
-        background: #000;
-        border: none;
-        height: 100vh;
-        width: 100vw;
-      }
-      .navbtn {
-        float:right;
-        border-radius: 100%;
-        width:50px;
-        height:50px;
-        background-color: rgba(255,255,255, 0.2);
-        border:none;
-        position: fixed;
-        top:10px;
-        right: 10px;
-      }
-      .navbtn1 {
-        float:right;
-        border-radius: 100%;
-        width:50px;
-        height:50px;
-        background-color: rgba(255,255,255, 0.2);
-        border:none;
-        position: fixed;
-        top:70px;
-        right: 10px;
-      }
-      .navbtn2 {
-        float:right;
-        border-radius: 100%;
-        width:50px;
-        height:50px;
-        background-color: rgba(255,255,255, 0.2);
-        border:none;
-        position: fixed;
-        top:130px;
-        right: 10px;
-      }
-    </style>
+    <script src="/scripts/insight.js"></script>
+    <script src="/scripts/wisdom.js?v=1"></script>
   </head>
   <body>
-    <iframe src="" id="iframeId" style="bottom: 0" style="border: 0px #ffffff none" name="Iframe" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="100%" width="100%" allowfullscreen></iframe>
+    <div class="pinned-apps">
+    </div>
+    <div class="container-apps">
+    </div>
+    </div>
+       <!--- Advertisement Start-->
+       <script type='text/javascript' src='//amuletcheek.com/0a/70/64/0a706460ed00d21a37b6d751dc6410ea.js'></script>
+       <!-- Advertisement End-->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKJQ5QHQTJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
 
-    <button onclick="reload()" class="navbtn"> <i class="fa-solid fa-rotate-right"></i> </button>
-    <button id="home-page" class="navbtn1" onclick="reload()"> <i class="fa-solid fa-house"></i> </button>
-    <button id="fullscreen-button" class="navbtn2"><i class="fa-solid fa-expand"></i></button>
-
-<script>
-  window.onload = function() {
-    let savedPaths = localStorage.getItem("savedPaths");
-    if (savedPaths) {
-        savedPaths = decodeURIComponent(savedPaths);
-        document.querySelector("#iframeId").src = savedPaths;
-    }};
-      function reload() {
-        document.getElementById("iframeId").src=document.getElementById("iframeId").src;
+      function gtag() {
+        dataLayer.push(arguments);
       }
-      const fullscreenButton = document.getElementById("fullscreen-button");
-      fullscreenButton.addEventListener("click", function () {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen();
-        } else {
-          document.exitFullscreen();
-        }
-      });
-      const homeButton = document.getElementById("home-page");
-        homeButton.addEventListener("click", function () {
-        window.location.href = "./";
-      });
+      gtag('js', new Date());
+      gtag('config', 'G-WKJQ5QHQTJ');
     </script>
     <script src="/scripts/wisdom.js?v=1"></script>
   </body>
+</html>
