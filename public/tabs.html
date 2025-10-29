@@ -51,7 +51,7 @@ form.addEventListener('submit', async (event) => {
   const formValue = document.querySelector('form input').value;
   const url = isUrl(formValue)
     ? prependHttps(formValue)
-    : 'https://www.google.com/search?q=' + formValue;
+    : 'https://www.bing.com/search?q=' + formValue;
 
   const activeIframe = Array.from(
     document.getElementById('iframe-container').querySelectorAll('iframe')
